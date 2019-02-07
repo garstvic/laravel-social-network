@@ -27,7 +27,7 @@
         </div>
         <div class="col-4">
             <h3>Sign In</h3>
-            <form action="#" method="post">
+            <form action="{{ route('user.signin') }}" method="post">
                 <div class="form-group">
                     <label for="email">E-Mail</label>
                     <input type="text" class="form-control" name="email" id="email">

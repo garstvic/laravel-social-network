@@ -19,3 +19,13 @@ Route::post('/signup', [
     'uses' => 'UserController@postSignUp',
     'as' => 'user.signup'
 ]);
+
+Route::post('/signin', [
+    'uses' => 'UserController@postSignIn',
+    'as' => 'user.signin'
+]);
+
+Route::get('/dashboard', [
+    'uses' => 'UserController@getDashboard',
+    'as' => 'dashboard'
+]);

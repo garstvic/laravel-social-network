@@ -18,3 +18,13 @@
     color: #aaa;
     font-style: italic;
 }
+
+.alert {
+    text-align: center;
+}
+
+.alert ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}

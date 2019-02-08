@@ -5,6 +5,7 @@
 @endsection
 
 @section('content')
+    @include('includes.message')
     <section class="row new-post my-5 justify-content-center">
         <div class="col-md-6">
             <header>

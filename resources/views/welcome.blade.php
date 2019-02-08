@@ -5,19 +5,7 @@
 @endsection
 
 @section('content')
-    @if ($errors->hasBag())
-        <div class="row my-5 justify-content-center">
-            <div class="col-md-5">
-                <div class="alert alert-danger" role="alert">
-                    <ul>
-                        @foreach ($errors->all() as $error)
-                            <li>{{ $error }}</li>
-                        @endforeach
-                    </ul>
-                </div>
-            </div>
-        </div>
-    @endif
+    @inlude('includes.message')
     <div class="row my-5 justify-content-center">
         <div class="col-4">
             <h3>Sign Up</h3>

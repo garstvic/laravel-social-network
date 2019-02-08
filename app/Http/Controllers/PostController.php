@@ -26,4 +26,11 @@ class PostController extends Controller
         
         return redirect()->route('dashboard')->with(['message' => $message]);
     }
+
+    public function getDashboard()
+    {
+        $posts = Post::all();
+            
+        return view('dashboard', ['posts' => $posts]);
+    }
 }

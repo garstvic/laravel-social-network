@@ -25,30 +25,20 @@
             <header>
                 <h3>What other people say...</h3>
             </header>
-            <article class="post my-3">
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quae laborum laboriosam voluptas eius, molestiae voluptatibus fugit culpa. Dolorum ea natus inventore totam, praesentium harum officiis expedita incidunt laudantium, quas soluta!</p>
-                <div class="info">
-                    Posted by User of 8 Feb 2018
-                </div>
-                <div class="interaction">
-                    <a href="#">Like</a> |
-                    <a href="#">Dislike</a> |
-                    <a href="#">Edit</a> |
-                    <a href="#">Delete</a>
-                </div>
-            </article>
-            <article class="post my-3">
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quae laborum laboriosam voluptas eius, molestiae voluptatibus fugit culpa. Dolorum ea natus inventore totam, praesentium harum officiis expedita incidunt laudantium, quas soluta!</p>
-                <div class="info">
-                    Posted by User of 8 Feb 2018
-                </div>
-                <div class="interaction">
-                    <a href="#">Like</a> |
-                    <a href="#">Dislike</a> |
-                    <a href="#">Edit</a> |
-                    <a href="#">Delete</a>
-                </div>
-            </article>            
+            @foreach ($posts as $post)
+                <article class="post my-3">
+                    <p>{{ $post->getAttribute('body') }}</p>
+                    <div class="info">
+                        Posted by {{ $post->user->getAttribute('name') }} on {{ $post->getAttribute('created_at') }}
+                    </div>
+                    <div class="interaction">
+                        <a href="#">Like</a> |
+                        <a href="#">Dislike</a> |
+                        <a href="#">Edit</a> |
+                        <a href="#">Delete</a>
+                    </div>
+                </article>
+            @endforeach
         </div>
     </section>
 @endsection

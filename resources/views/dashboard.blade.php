@@ -10,11 +10,12 @@
             <header>
                 <h3>What do you have to say?</h3>
             </header>
-            <form asction="" method="post">
+            <form action="{{ route('post.create') }}" method="post">
                 <div class="form-group">
-                    <textarea name="new-post" id="new-post" rows="5" class="form-control" placeholder="Your Post"></textarea>
+                    <textarea name="body" id="body" rows="5" class="form-control" placeholder="Your Post"></textarea>
                 </div>
                 <button type="submit" class="btn btn-primary">Create Post</button>
+                {{ csrf_field() }} 
             </form>
         </div>
     </section>

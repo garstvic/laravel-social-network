@@ -12,9 +12,15 @@ class UserController extends Controller
 {
     public function postSignUp(Request $request)
     {
-        $name = $request['name'];
-        $email = $request['email'];
-        $password = bcrypt($request['password']);
+        $this->validate($request, [
+            'email' => 'required|email|unique:users',
+            'name' => 'required|max:120',
+            'password' => 'required|min:8'
+        ]);
+        
+        $name = $request->input('name');
+        $email = $request->input('email');
+        $password = bcrypt($request->input('password'));
         
         $user = new User();
         $user->setAttribute('name', $name);
@@ -30,6 +36,11 @@ class UserController extends Controller
     
     public function postSignIn(Request $request)
     {
+        $this->validate($request, [
+            'email' => 'required|email',
+            'password' => 'required|min:8'
+        ]);
+        
         if (Auth::attempt(['email' => $request->input('email'), 'password' => $request->input('password')]))
         {
             return redirect()->route('dashboard');

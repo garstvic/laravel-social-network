@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Http\Response;
 
 use App\Http\Requests;
 use App\User;
@@ -61,8 +64,33 @@ class UserController extends Controller
         return view('account', ['user' => Auth::user()]);
     }
     
-    public function postSaveAccount(Request $request)
+    public function postUpdateAccount(Request $request)
     {
+        $this->validate($request, [
+            'name' => 'required|min:4|max:120' 
+        ]);
         
+        $user = Auth::user();
+        
+        $user->setAttribute('name', $request->input('name'));
+        $user->update();
+        
+        $file = $request->file('image');
+        
+        if ($file) 
+        {
+            $filename = $request->input('name').'-'.$user->getAttribute('id').'.jpg';            
+            
+            Storage::disk('local')->put($filename, File::get($file));
+        }
+        
+        return redirect()->route('user.account');
+    }
+    
+    public function getUserImage($filename)
+    {
+        $file = Storage::disk('local')->get($filename);
+        
+        return new Response($file, 200);
     }
 }

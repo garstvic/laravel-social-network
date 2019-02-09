@@ -37,8 +37,13 @@ Route::group(['middleware' => 'auth'], function() {
     ]);
     
     Route::post('/updateaccount', [
-        'uses' => 'UserController@postSaveAccount',
+        'uses' => 'UserController@postUpdateAccount',
         'as' => 'account.update'
+    ]);
+    
+    Route::get('/userimage/{filename}', [
+        'uses' => 'UserController@getUserImage',
+        'as' => 'account.image'
     ]);
     
     Route::get('/dashboard', [

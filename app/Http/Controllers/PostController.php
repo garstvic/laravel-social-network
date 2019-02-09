@@ -3,9 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 use App\Http\Requests;
-
 use App\Post;
 
 class PostController extends Controller
@@ -29,14 +29,19 @@ class PostController extends Controller
 
     public function getDashboard()
     {
-        $posts = Post::all();
+        $posts = Post::orderBy('created_at', 'desc')->get();
             
         return view('dashboard', ['posts' => $posts]);
     }
     
     public function getDeletePost($post_id)
     {
-        $post = Post::find($post_id)->first();
+        $post = Post::where('id', $post_id)->first();
+
+        if (strpos(Auth::user()->getAttribute('name'), $post->user->getAttribute('name')) !== 0)
+        {
+            return redirect()->back();
+        }
         
         $post->delete();
         

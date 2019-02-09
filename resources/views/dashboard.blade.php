@@ -33,9 +33,12 @@
                     </div>
                     <div class="interaction">
                         <a href="#">Like</a> |
-                        <a href="#">Dislike</a> |
-                        <a href="#">Edit</a> |
-                        <a href="{{ route('post.delete', ['post_id' => $post->getAttribute('id')]) }}">Delete</a>
+                        <a href="#">Dislike</a> 
+                        @if (strpos(Auth::user()->getAttribute('name'), $post->user->getAttribute('name')) === 0)
+                            |
+                            <a href="#" id="post-id" data-postid="{{ $post->id }}">Edit</a> |
+                            <a href="{{ route('post.delete', ['post_id' => $post->getAttribute('id')]) }}">Delete</a>
+                        @endif
                     </div>
                 </article>
             @endforeach

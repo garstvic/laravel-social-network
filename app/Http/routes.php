@@ -45,4 +45,8 @@ Route::group(['middleware' => 'auth'], function() {
         'uses' => 'PostController@getDeletePost',
         'as' => 'post.delete'
     ]);
+    
+    Route::post('/editpost', function(\Illuminate\Http\Request $request) {
+        return response()->json(['message' => $request->input('postId')]);
+    })->name('post.edit');
 });

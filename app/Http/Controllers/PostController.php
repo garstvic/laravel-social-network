@@ -47,9 +47,22 @@ class PostController extends Controller
         
         return redirect()->route('dashboard')->with(['message' => 'Successfully deleted!']);
     }
-    
-    public function getEditPost($post_id)
+
+    public function postEditPost(Request $request)
     {
+        $this->validate($request, [
+            'body' => 'required'
+        ]);
         
+        if (strpos(Auth::user()->getAttribute('name'), $post->user->getAttribute('name')) !== 0)
+        {
+            return redirect()->back();
+        }
+        
+        $post = Post::where('id', $request->input('postId'))->first();
+        $post->setAttribute('body', $request->input('body'));
+        $post->update();
+        
+        return response()->json(['new_body' => $post->getAttribute('body')], 200);
     }
 }

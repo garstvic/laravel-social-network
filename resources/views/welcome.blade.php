@@ -5,7 +5,7 @@
 @endsection
 
 @section('content')
-    @inlude('includes.message')
+    @include('includes.message')
     <div class="row my-5 justify-content-center">
         <div class="col-4">
             <h3>Sign Up</h3>

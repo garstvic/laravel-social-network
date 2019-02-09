@@ -33,4 +33,13 @@ class PostController extends Controller
             
         return view('dashboard', ['posts' => $posts]);
     }
+    
+    public function getDeletePost($post_id)
+    {
+        $post = Post::find($post_id)->first();
+        
+        $post->delete();
+        
+        return redirect()->route('dashboard')->with(['message' => 'Successfully deleted!']);
+    }
 }

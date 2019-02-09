@@ -35,7 +35,7 @@
                         <a href="#">Like</a> |
                         <a href="#">Dislike</a> |
                         <a href="#">Edit</a> |
-                        <a href="#">Delete</a>
+                        <a href="{{ route('post.delete', ['post_id' => $post->getAttribute('id')]) }}">Delete</a>
                     </div>
                 </article>
             @endforeach

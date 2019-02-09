@@ -36,7 +36,7 @@
                         <a href="#">Dislike</a> 
                         @if (strpos(Auth::user()->getAttribute('name'), $post->user->getAttribute('name')) === 0)
                             |
-                            <a href="#" id="post-id" data-postid="{{ $post->id }}">Edit</a> |
+                            <a href="#" class="edit" data-postid="{{ $post->id }}">Edit</a> |
                             <a href="{{ route('post.delete', ['post_id' => $post->getAttribute('id')]) }}">Delete</a>
                         @endif
                     </div>
@@ -57,7 +57,7 @@
                     <form action="">
                         <div class="form-group">
                             <label for="post-body">Edit the Post</label>
-                            <textarea class="form-control" type="textarea" name="post-body" rows="5"></textarea>
+                            <textarea class="form-control" type="textarea" name="post-body" rows="5" id="post-body"></textarea>
                         </div>
                     </form>
                 </div>

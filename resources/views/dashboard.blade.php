@@ -31,12 +31,12 @@
                     <div class="info">
                         Posted by {{ $post->user->getAttribute('name') }} on {{ $post->getAttribute('created_at') }}
                     </div>
-                    <div class="interaction">
-                        <a href="#">Like</a> |
-                        <a href="#">Dislike</a> 
+                    <div class="interaction" data-postid="{{ $post->getAttribute('id') }}">
+                        <a href="#" class="like">{{ Auth::user()->likes()->where('post_id', $post->getAttribute('id'))->first() ? Auth::user()->likes()->where('post_id', $post->getAttribute('id'))->first()->like == 1 ? 'You like this post' : 'Like' : 'Like' }}</a> |
+                        <a href="#" class="like">{{ Auth::user()->likes()->where('post_id', $post->getAttribute('id'))->first() ? Auth::user()->likes()->where('post_id', $post->getAttribute('id'))->first()->like == 0 ? 'You don\'t like this post' : 'Dislike' : 'Dislike' }}</a> 
                         @if (strpos(Auth::user()->getAttribute('name'), $post->user->getAttribute('name')) === 0)
                             |
-                            <a href="#" class="edit" data-postid="{{ $post->getAttribute('id') }}">Edit</a> |
+                            <a href="#" class="edit">Edit</a> |
                             <a href="{{ route('post.delete', ['post_id' => $post->getAttribute('id')]) }}">Delete</a>
                         @endif
                     </div>
@@ -71,6 +71,7 @@
     
     <script>
         var token = '{{ Session::token() }}';
-        var url = '{{ route('post.edit') }}';
+        var urlEdit = '{{ route('post.edit') }}';
+        var urlLike = '{{ route('post.like') }}';
     </script>
 @endsection

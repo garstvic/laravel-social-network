@@ -5,21 +5,21 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 
 use App\User;
-use App\Likes;
+use App\Post;
 
-class Post extends Model
+class Like extends Model
 {
     protected $fillable = [
-        'body'
+        'like', 'user_id', 'post_id'
     ];
     
-    public function user()
+    public function post()
     {
         return $this->belongsTo(User::class);
     }
     
-    public function likes()
+    public function user()
     {
-        return $this->hasMany(Like::class);
+        return $this->belongsTo(Post::class);
     }
 }

@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Auth;
 
 use App\Http\Requests;
 use App\Post;
+use App\Like;
 
 class PostController extends Controller
 {
@@ -54,15 +55,58 @@ class PostController extends Controller
             'body' => 'required'
         ]);
         
+        $post = Post::where('id', $request->input('postId'))->first();
+        
         if (strpos(Auth::user()->getAttribute('name'), $post->user->getAttribute('name')) !== 0)
         {
             return redirect()->back();
         }
-        
-        $post = Post::where('id', $request->input('postId'))->first();
+
         $post->setAttribute('body', $request->input('body'));
         $post->update();
-        
+
         return response()->json(['new_body' => $post->getAttribute('body')], 200);
+    }
+    
+    public function postLikePost(Request $request)
+    {
+        $postId = $request->input('postId');
+        $isLike = strpos($request->input('isLike'), 'true') === 0;
+        $post = Post::where('id', $postId)->first();
+        
+        if (!$post)
+        {
+            return null;
+        }
+        
+        $user = Auth::user();
+        
+        $like = $user->likes()->where('post_id', $postId)->first();
+
+        if ($like) 
+        {
+            $alreadyLike = $like->getAttribute('like');
+
+            if ($alreadyLike == $isLike)
+            {
+                $like->delete();
+            }
+            else 
+            { 
+                $like->setAttribute('like', $isLike);
+                $like->setAttribute('user_id', $user->getAttribute('id'));
+                $like->setAttribute('post_id', $post->getAttribute('id'));
+                
+                $like->update();
+            }
+        }
+        else
+        {
+            $like = new Like(['like' => $isLike, 'user_id' => $user->getAttribute('id'), 'post_id' => $post->getAttribute('id')]);
+
+            $like->save();
+        }
+        
+        return null;
     }
 }
